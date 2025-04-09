@@ -12,13 +12,11 @@ class ProductController extends Controller
         $products = Product::all();
         $exchangeRate = $this->getExchangeRate();
 
-        return view('products.list', compact('products', 'exchangeRate'));
+        return view('products.index', compact('products', 'exchangeRate'));
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Product $product)
     {
-        $id = $request->route('product_id');
-        $product = Product::find($id);
         $exchangeRate = $this->getExchangeRate();
 
         return view('products.show', compact('product', 'exchangeRate'));
@@ -55,6 +53,6 @@ class ProductController extends Controller
 
         }
 
-        return env('EXCHANGE_RATE', 0.85);
+        return config('app.exchange_rate');
     }
 }
